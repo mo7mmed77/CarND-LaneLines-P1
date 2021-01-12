@@ -34,6 +34,11 @@ Finally the output of the averaged lane line, will be combined with the original
 ![alt text][image2]
 
 
+
+[image3]: ./yellowLane.png "Hough Lines Output 2"
+
+![alt text][image3]
+
 ### 2. Identify potential shortcomings with your current pipeline
 
 
