@@ -8,49 +8,69 @@ Overview
 
 When we drive, we use our eyes to decide where to go.  The lines on the road that show us where the lanes are act as our constant reference for where to steer the vehicle.  Naturally, one of the first things we would like to do in developing a self-driving car is to automatically detect lane lines using an algorithm.
 
-In this project you will detect lane lines in images using Python and OpenCV.  OpenCV means "Open-Source Computer Vision", which is a package that has many useful tools for analyzing images.  
 
-To complete the project, two files will be submitted: a file containing project code and a file containing a brief write up explaining your solution. We have included template files to be used both for the [code](https://github.com/udacity/CarND-LaneLines-P1/blob/master/P1.ipynb) and the [writeup](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md).The code file is called P1.ipynb and the writeup template is writeup_template.md 
-
-To meet specifications in the project, take a look at the requirements in the [project rubric](https://review.udacity.com/#!/rubrics/322/view)
+# **Finding Lane Lines on the Road** 
 
 
-Creating a Great Writeup
----
-For this project, a great writeup should provide a detailed response to the "Reflection" section of the [project rubric](https://review.udacity.com/#!/rubrics/322/view). There are three parts to the reflection:
 
-1. Describe the pipeline
-
-2. Identify any shortcomings
-
-3. Suggest possible improvements
-
-We encourage using images in your writeup to demonstrate how your pipeline works.  
-
-All that said, please be concise!  We're not looking for you to write a book here: just a brief description.
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup. Here is a link to a [writeup template file](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md). 
-
-
-The Project
 ---
 
-## If you have already installed the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) you should be good to go!   If not, you should install the starter kit to get started on this project. ##
+**Finding Lane Lines on the Road**
 
-**Step 1:** Set up the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) if you haven't already.
+The goals / steps of this project are the following:
+- Finding lane lines of a road using computer vision techniques. 
 
-**Step 2:** Open the code in a Jupyter Notebook
+[//]: # (Image References)
 
-You will complete the project code in a Jupyter notebook.  If you are unfamiliar with Jupyter Notebooks, check out [Udacity's free course on Anaconda and Jupyter Notebooks](https://classroom.udacity.com/courses/ud1111) to get started.
+[image1]: ./examples/grayscale.jpg "Grayscale"
 
-Jupyter is an Ipython notebook where you can run blocks of code and see results interactively.  All the code for this project is contained in a Jupyter notebook. To start Jupyter in your browser, use terminal to navigate to your project directory and then run the following command at the terminal prompt (be sure you've activated your Python 3 carnd-term1 environment as described in the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) installation instructions!):
+---
 
-`> jupyter notebook`
+### Reflection
 
-A browser window will appear showing the contents of the current directory.  Click on the file called "P1.ipynb".  Another browser window will appear displaying the notebook.  Follow the instructions in the notebook to complete the project.  
+### 1. PipeLine Describtion
 
-**Step 3:** Complete the project and submit both the Ipython notebook and the project writeup
+My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I used Guassian Blur to remove small unneeded parts. Then I use Canny technique to find the edges of the gray image, and I tried to tune the two thresholds as the best of my ability. Once we have the results of the canny as I wanted, I applied the region of interest (a trapezoid to contain only the left and right lanes).   
 
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+After that, I used Hough method to highlight the lanes and by tuning rho and theta I was able to get most of the lanes in all of the given test images. Moreover, I tuned the min lane length and gap to make sure that the pipline will detect the most extreme cases in which was have small lane lines. The output of the hough algorthim is the lane lines coordinates on the image.
 
+In order to draw a single line on the left and right lanes, I modified the draw_lines() function by incudling a method to find the average of the lines for each side (left and right). Then I calculated the slope of the average line and I extrapolate to extend the line in both directions to cover all the lane. This was done in a single image, for multiple images (a video), I included a moving average function that takes 5 readings at a time. This will help reduce any lane detection failures due to low pixels of lane. 
+
+
+Finally the output of the averaged lane line, will be combined with the original image and the results are verified. 
+
+## Hough Output
+[image2]: ./houghLines.png "Hough Lines Output"
+
+![alt text][image2]
+
+
+[image3]: ./yellowLane.png "Hough Lines Output 2"
+
+![alt text][image3]
+
+[image4]: ./drawLines.png "Draw Lines Output"
+
+## PipeLine Output
+![alt text][image3]
+
+
+### 2.  Potential Shortcomings of the Pipeline
+- Some some lane lines are not detected by this pipeline. 
+- This pipeline only applicable for this weather condition (sunlights, shadows and rain will affect its robustness).
+- The moving average can restrict the detection when the car is changing lanes, (it will create some sort of a lag). 
+- The color of the lanes can effect the detection greatly.
+
+
+
+
+### 3. Suggest possible improvements to your pipeline
+
+- apply a method to detect all lane lines without including any other unrelated objects.
+- develop a method to eliminate the effects of the weather conditions. 
+- Use a more robust method other than moving average. 
+- eliminate the effects of the color changes on the detection.
+
+
+Thank you for reading this. 
+Kind regards
