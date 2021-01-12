@@ -52,7 +52,7 @@ Finally the output of the averaged lane line, will be combined with the original
 [image4]: ./drawLines.png "Draw Lines Output"
 
 ## PipeLine Output
-![alt text][image3]
+![alt text][image4]
 
 
 ### 2.  Potential Shortcomings of the Pipeline
