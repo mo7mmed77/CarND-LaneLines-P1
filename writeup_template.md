@@ -29,9 +29,9 @@ In order to draw a single line on the left and right lanes, I modified the draw_
 Finally the output of the averaged lane line, will be combined with the original image and the results are verified. 
 
 
-[image1]: ./houghLines.png "Hough Lines Output"
+[image2]: ./houghLines.png "Hough Lines Output"
 
-![alt text][image1]
+![alt text][image2]
 
 
 ### 2. Identify potential shortcomings with your current pipeline
