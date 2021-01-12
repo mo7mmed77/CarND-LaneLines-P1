@@ -28,27 +28,38 @@ In order to draw a single line on the left and right lanes, I modified the draw_
 
 Finally the output of the averaged lane line, will be combined with the original image and the results are verified. 
 
-
+## Hough Output
 [image2]: ./houghLines.png "Hough Lines Output"
 
 ![alt text][image2]
-
 
 
 [image3]: ./yellowLane.png "Hough Lines Output 2"
 
 ![alt text][image3]
 
-### 2. Identify potential shortcomings with your current pipeline
+[image4]: ./drawLines.png "Draw Lines Output"
+
+## PipeLine Output
+![alt text][image3]
 
 
-One potential shortcoming would be what would happen when ... 
+### 2.  Potential Shortcomings of the Pipeline
+- Some some lane lines are not detected by this pipeline. 
+- This pipeline only applicable for this weather condition (sunlights, shadows and rain will affect its robustness).
+- The moving average can restrict the detection when the car is changing lanes, (it will create some sort of a lag). 
+- The color of the lanes can effect the detection greatly.
 
-Another shortcoming could be ...
+
 
 
 ### 3. Suggest possible improvements to your pipeline
 
-A possible improvement would be to ...
+- apply a method to detect all lane lines without including any other unrelated objects.
+- develop a method to eliminate the effects of the weather conditions. 
+- Use a more robust method other than moving average. 
+- eliminate the effects of the color changes on the detection.
 
-Another potential improvement could be to ...
+
+Thank you for reading this. 
+Kind regards
